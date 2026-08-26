@@ -19,7 +19,7 @@ Plataforma web para la gestión centralizada y segura de fichas de jugadores, cl
 ## 🛠️ Tech Stack
 
 * **Frontend:** Vue 3 (Composition API / `<script setup>`), Vue Router
-* **Backend & Database:** Supabase (PostgreSQL, Auth, Storage)
+* **Backend & Database:** Javascript, Node.js, Express.js, Supabase (PostgreSQL, Auth, Storage)
 * **Diseño UI/UX:** Figma
 * **Control de Versiones & Deploy:** Git, GitHub, Vercel / Netlify
 
