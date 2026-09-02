@@ -52,7 +52,26 @@ app.put('/jugadores/:id', (request, response)  => {
 response.json(jugadorEditado)
 }
 )
- 
+let  clubes = [
+  {id: 1, nombre: "Club 1"},
+  {id: 2, nombre: "Club 2"},
+  {id: 3, nombre: "Club 3"}
+]
+app.get('/clubes', (request, response) => response.json(clubes))
+
+app.post('/clubes', (request, response) => {
+  let nuevoIdClub = clubes.length + 1 ;
+  let clubNuevo = {id: nuevoIdClub, nombre: request.body.nombre};
+  clubes.push(clubNuevo);
+  response.json(clubNuevo);
+}
+)
+app.delete('/clubes/:id' , (request, response) => {
+  clubes = clubes.filter((club) => clubes.id !== Number(request.params.id)
+  )
+  response.json(clubes)
+}
+)
 
 // segunda ruta creada metodo listen, esta app escucha el puerto 1234, y aparece aviso de servidor levantado en...
 app.listen(PORT, () =>{
