@@ -72,6 +72,13 @@ app.delete('/clubes/:id' , (request, response) => {
   response.json(clubes)
 }
 )
+app.put('/clubes/:id', (request, response) => {
+  let clubEditado = clubes.find((clubAEditar) => clubAEditar.id === Number(request.params.id)) 
+  clubEditado.nombre = request.body.nombre 
+response.json(clubEditado)
+}
+)
+
 
 // segunda ruta creada metodo listen, esta app escucha el puerto 1234, y aparece aviso de servidor levantado en...
 app.listen(PORT, () =>{
