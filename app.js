@@ -1,7 +1,9 @@
 import express from 'express';
+import cors from 'cors'
 
 const PORT = process.env.PORT ?? 1234
 const app = express(); // Inicializa la aplicación de Express y guardas sus funciones en la constante app.
+app.use(cors())
 
 // primera ruta creada, con el primer metodo (get), que aparecerá al inicializar la página web
 app.get('/', (request, response) => {
@@ -18,7 +20,6 @@ let jugadores =
 app.get('/jugadores',(request, response) => {
   response.json(jugadores)
 })
-
 
 // activa el middleware para json, Sin esta línea, no podría leer lo que el usuario manda en el cuerpo (body) de las peticiones.
 app.use(express.json())
@@ -78,7 +79,6 @@ app.put('/clubes/:id', (request, response) => {
 response.json(clubEditado)
 }
 )
-
 
 // segunda ruta creada metodo listen, esta app escucha el puerto 1234, y aparece aviso de servidor levantado en...
 app.listen(PORT, () =>{

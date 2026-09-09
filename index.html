@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="lista-jugadores"></ul>
+    <script>
+        fetch('http://localhost:1234/jugadores')
+        .then(response => response.json())
+        .then(data => {
+            let html = ""
+            data.forEach((jugador) => {
+            html += `<li>${jugador.nombre} - ${jugador.edad} años</li>`
+        })
+          //busca dentro de todo el HTML de la página, el elemento que tenga ese id exacto
+        let contenedor = document.getElementById('lista-jugadores')
+        contenedor.innerHTML = html   
+    })
+    
+    </script>
+</body>
+</html>
