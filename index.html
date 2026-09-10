@@ -15,11 +15,11 @@
             data.forEach((jugador) => {
             html += `<li>${jugador.nombre} - ${jugador.edad} años</li>`
         })
-          //busca dentro de todo el HTML de la página, el elemento que tenga ese id exacto
+          //busca el elemento que tenga ese id exacto
         let contenedor = document.getElementById('lista-jugadores')
-        contenedor.innerHTML = html   
+        // innerHTML cambia el código HTML que está dentro de un elemento, en este caso por el contenido de 'html'
+        contenedor.innerHTML = html
     })
-    
     </script>
 </body>
 </html>
