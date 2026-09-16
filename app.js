@@ -3,7 +3,7 @@ import cors from 'cors'
 
 const PORT = process.env.PORT ?? 1234
 const app = express(); // Inicializa la aplicación de Express y guardas sus funciones en la constante app.
-// se otorga permiso para que localhost:1234 acceda a metodos http 
+// se otorga permiso para que http://127.0.0.1:5500 acceda a metodos http 
 app.use(cors({
   origin: 'http://127.0.0.1:5500'
 }

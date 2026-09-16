@@ -6,20 +6,9 @@
     <title>Document</title>
 </head>
 <body>
+    <input type="text" id="buscador" placeholder="Buscar jugador...">
     <ul id="lista-jugadores"></ul>
-    <script>
-        fetch('http://localhost:1234/jugadores')
-        .then(response => response.json())
-        .then(data => {
-            let html = ""
-            data.forEach((jugador) => {
-            html += `<li>${jugador.nombre} - ${jugador.edad} años</li>`
-        })
-          //busca el elemento que tenga ese id exacto
-        let contenedor = document.getElementById('lista-jugadores')
-        // innerHTML cambia el código HTML que está dentro de un elemento, en este caso por el contenido de 'html'
-        contenedor.innerHTML = html
-    })
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
+
