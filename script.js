@@ -1,23 +1,34 @@
-// Hace una petición GET a tu backend. fetch devuelve una "promesa"
+// Pide al servidor los datos de /jugadores (devuelve una promesa)
 fetch('http://localhost:1234/jugadores')
+        // Cuando llega la respuesta cruda, la convierte a datos usables (JSON)
         .then(response => response.json())
+        // Cuando los datos ya están convertidos, los llama "jugadores" y sigue:
         .then(jugadores => {
+            // Crea una caja de texto vacía
             let html = ""
+            
+            // Por cada jugador del array, hace lo siguiente:
             jugadores.forEach((jugador) => {
-            html += `<li>${jugador.nombre} - ${jugador.edad} años</li>`
-            // buscar input con getlementbyid
-    })
+                // Le agrega a "html" un <li> con nombre y edad de ESTE jugador
+                html += `<li>${jugador.nombre} - ${jugador.edad} años</li>`
+    }) // Acá "html" ya tiene los <li> de todos los jugadores juntos
+
+    // Busca en la página el elemento con id="buscador"
     let buscador = document.getElementById('buscador')
+     // Registra qué hacer cuando el usuario escriba algo (no se ejecuta todavía)
     buscador.addEventListener('input', (event) => {
-        console.log(event.target.value)  // el texto que el usuario tiene escrito, en este momento
+        // Muestra en consola el texto que el usuario tiene escrito ahora
+        console.log(event.target.value)  
+    // Guarda ese texto convertido a minúsculas
     let textoBuscado = event.target.value.toLowerCase()
+    // Filtra "jugadores": se queda solo con los que incluyen el texto buscado en su nombre
     let jugadorBuscado = jugadores.filter((jugador) =>
     jugador.nombre.toLowerCase().includes(textoBuscado))
-})
-        
-          //busca el elemento que tenga ese id exacto
-        let contenedor = document.getElementById('lista-jugadores')
-        // innerHTML cambia el código HTML que está dentro de un elemento, en este caso por el contenido de 'html'
+})  // Hasta acá llega lo que se ejecuta cuando el usuario escribe
+
+    // Busca en la página el elemento con id="lista-jugadores"
+    let contenedor = document.getElementById('lista-jugadores')
+        // Reemplaza el contenido del contenedor por "html" (los jugadores originales)
         contenedor.innerHTML = html
     })
     
