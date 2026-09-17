@@ -6,16 +6,16 @@ fetch('http://localhost:1234/jugadores')
         .then(jugadores => {
             // Crea una caja de texto vacía
             let html = ""
-            
+
             // Por cada jugador del array, hace lo siguiente:
             jugadores.forEach((jugador) => {
                 // Le agrega a "html" un <li> con nombre y edad de ESTE jugador
                 html += `<li>${jugador.nombre} - ${jugador.edad} años</li>`
-    }) // Acá "html" ya tiene los <li> de todos los jugadores juntos
+    }) // Acá "html" ya tiene los <li> de todos los jugadores juntos. Traducir datos del backend en → texto con forma de HTML
 
     // Busca en la página el elemento con id="buscador"
     let buscador = document.getElementById('buscador')
-     // Registra qué hacer cuando el usuario escriba algo (no se ejecuta todavía)
+    // Registra qué hacer cuando el usuario escriba algo (no se ejecuta todavía)
     buscador.addEventListener('input', (event) => {
         // Muestra en consola el texto que el usuario tiene escrito ahora
         console.log(event.target.value)  
@@ -23,9 +23,10 @@ fetch('http://localhost:1234/jugadores')
     let textoBuscado = event.target.value.toLowerCase()
     // Filtra "jugadores": se queda solo con los que incluyen el texto buscado en su nombre
     let jugadorBuscado = jugadores.filter((jugador) =>
-    jugador.nombre.toLowerCase().includes(textoBuscado))
+        jugador.nombre.toLowerCase().includes(textoBuscado))
 })  // Hasta acá llega lo que se ejecuta cuando el usuario escribe
 
+    // Logra mostrar siempre la lista completa, sin importar lo que el usuario escriba
     // Busca en la página el elemento con id="lista-jugadores"
     let contenedor = document.getElementById('lista-jugadores')
         // Reemplaza el contenido del contenedor por "html" (los jugadores originales)
