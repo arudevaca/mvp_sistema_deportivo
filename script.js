@@ -1,35 +1,57 @@
-// Pide al servidor los datos de /jugadores (devuelve una promesa)
+let listaJugadoresGlobal = []
+let inputBuscador = document.getElementById('buscador');
+let divListaJugadores = document.getElementById('lista-jugadores');
+
+// Esta función recibe un array de jugadores y los muestra en la página
+function mostrarJugadoresEnPantalla (listaJugadores){
+    let listaHtmlJugadores = ""
+    listaJugadores.forEach((jugadores) => {
+        htmlResultado += `<li>${jugador.nombre} - ${jugador.edad} años</li>`;       
+    });
+    divListaJugadores.innerHTML = htmlResultado
+}
+
+//datos del servidor
 fetch('http://localhost:1234/jugadores')
-        // Cuando llega la respuesta cruda, la convierte a datos usables (JSON)
-        .then(response => response.json())
-        // Cuando los datos ya están convertidos, los llama "jugadores" y sigue:
-        .then(jugadores => {
-            // Crea una caja de texto vacía
-            let html = ""
+    .then(response => response.json())
+    .then(jugadoresBackend => {
+        listaJugadoresGlobal = jugadoresBackend;
+        // Dibujamos la lista completa por primera vez
+        mostrarJugadoresEnPantalla(listaJugadoresGlobal);
+    });
 
-            // Por cada jugador del array, hace lo siguiente:
-            jugadores.forEach((jugador) => {
-                // Le agrega a "html" un <li> con nombre y edad de ESTE jugador
-                html += `<li>${jugador.nombre} - ${jugador.edad} años</li>`
-    }) // Acá "html" ya tiene los <li> de todos los jugadores juntos. Traducir datos del backend en → texto con forma de HTML
+//cuando el usuario escribe
+inputBuscador.addEventListener('input', (event) => {
+    let textoFiltro = event.target.value.toLowerCase();
+    let jugadoresFiltrados = listaJugadoresGlobal.filter((jugador) => 
+        jugador.nombre.toLowerCase().includes(textoFiltro)
+    )
+    mostrarJugadoresEnPantalla(jugadoresFiltrados);
+});
 
-    // Busca en la página el elemento con id="buscador"
-    let buscador = document.getElementById('buscador')
-    // Registra qué hacer cuando el usuario escriba algo (no se ejecuta todavía)
-    buscador.addEventListener('input', (event) => {
-        // Muestra en consola el texto que el usuario tiene escrito ahora
-        console.log(event.target.value)  
-    // Guarda ese texto convertido a minúsculas
-    let textoBuscado = event.target.value.toLowerCase()
-    // Filtra "jugadores": se queda solo con los que incluyen el texto buscado en su nombre
-    let jugadorBuscado = jugadores.filter((jugador) =>
-        jugador.nombre.toLowerCase().includes(textoBuscado))
-})  // Hasta acá llega lo que se ejecuta cuando el usuario escribe
 
-    // Logra mostrar siempre la lista completa, sin importar lo que el usuario escriba
-    // Busca en la página el elemento con id="lista-jugadores"
-    let contenedor = document.getElementById('lista-jugadores')
-        // Reemplaza el contenido del contenedor por "html" (los jugadores originales)
-        contenedor.innerHTML = html
-    })
-    
+let nombre = document.getElementById('nombre')
+let edad = document.getElementById('edad')
+let botonGuardar = document.getElementById('guardar-usuario')
+
+botonGuardar.addEventListener('click', (event)=>{
+    console.log(event.target.value)
+    let nuevoJugador = {nombre:nombre.value , edad: edad.value};
+fetch('http://localhost:1234/jugadores', {
+    method: 'POST',
+    header:{
+        'Content-type' : 'application/json'
+    },
+    body : JSON.stringify(nuevoJugador)
+}) 
+.then(response => response.json())
+.then(jugadorCreado =>{
+    //1. Sumamos nuevo jugador a lista global
+    listaJugadoresGlobal.push(jugadorCreado)
+    //2. volvemos a pintar lista en html
+    mostrarJugadoresEnPantalla(listaJugadoresGlobal)
+    //3.limpiar input de formulario
+    nombre.value="";
+    edad.value="";
+})
+})
